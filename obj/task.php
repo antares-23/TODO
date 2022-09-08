@@ -57,7 +57,7 @@ class Task{
 
     public function listUser($idUser){
 
-        $q= "SELECT * FROM tasks WHERE idUser=:idUser";
+        $q= "SELECT * FROM tasks WHERE idUser=:idUser ORDER BY dueDate ASC";
         $stmt = $this->conn->prepare($q);
 
         $this->idUser =  htmlspecialchars(strip_tags($idUser));
@@ -75,7 +75,7 @@ class Task{
 
     public function listAll(){
                
-        $q= "SELECT * FROM tasks WHERE 1";
+        $q= "SELECT * FROM tasks WHERE 1 ORDER BY dueDate ASC";
         $stmt = $this->conn->prepare($q);
         
         if($stmt->execute()){

@@ -21,6 +21,14 @@ echo "<div class='container mt-5'>  ";
    $stmt= $task->listUser($idUser);
   
    if(isset($_GET['action'])){
+    if($_GET['action']=='created'){
+      echo "
+      <div class='alert alert-success alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>Success!</strong> TODO Created!
+      </div>";
+    }
+
     if($_GET['action']=='cheked'){
       echo "
       <div class='alert alert-success alert-dismissible'>
@@ -96,7 +104,7 @@ if($stmt->rowCount()>0){
 
        $date1 = new DateTime(date("Y-m-d"));
         $date2 = new DateTime($dueDate);
-        if( $date1 > $date2 )
+        if( $date1 > $date2 && $status==0 )
           echo "style='background-color: crimson !important'"; ?> >
         <?php 
 
