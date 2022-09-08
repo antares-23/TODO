@@ -58,4 +58,23 @@ Use the parameters from your MySQL Server
 ```
 
 
+## Login
 
+There are by default two users for testing and administration
+
+Administrator:
+
+```bash
+     user: admin@mail.com
+     pass:123456   
+    
+```
+User:
+
+```bash
+     user: user@mail.com
+     pass:123456   
+    
+```
+
+With Admin you can manage all TODOS from all users and administrate users, with user account ypu can only create and administrate your TODOs.
