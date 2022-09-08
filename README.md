@@ -3,7 +3,7 @@
 
 A Simple TODO in PHP, HTML5, Boostrap and MAriaDB.
 
-![Screenshot](./TODO/images/system.jpg)
+![Screenshot](https://github.com/antares-23/TODO/blob/main/images/system.jpg)
 
 ## Requeriments
 
