@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 06-09-2022 a las 19:11:25
--- Versión del servidor: 5.7.24
--- Versión de PHP: 7.4.16
+-- Tiempo de generación: 08-09-2022 a las 07:28:46
+-- Versión del servidor: 5.7.33
+-- Versión de PHP: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,19 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `tasks` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
   `description` text NOT NULL,
   `idUser` int(11) NOT NULL,
   `created` date NOT NULL,
   `dueDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tasks`
---
-
-INSERT INTO `tasks` (`id`, `name`, `status`, `description`, `idUser`, `created`, `dueDate`) VALUES
-(3, 'Demo TODO', 1, 'balh blah blah', 1, '2022-09-06', '2022-09-07');
 
 -- --------------------------------------------------------
 
@@ -63,7 +56,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `isAdmin`) VALUES
-(1, 'Admin', 'admin@mail.com', '$2y$10$QrzFjlh0AjTK3NeKj7dWX./TYjx1GMtUiztVhTO4viD10su7l8Dca', 0),
+(1, 'Admin', 'admin@mail.com', '$2y$10$QrzFjlh0AjTK3NeKj7dWX./TYjx1GMtUiztVhTO4viD10su7l8Dca', 1),
 (2, 'User', 'user@mail.com', '$2y$10$hYp3jlWzQv45LGOMq7rRHe8cuwi1/LJ5K.6X2pEWsaBVfKfTX37N6', 0);
 
 --
@@ -91,13 +84,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
