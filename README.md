@@ -3,6 +3,8 @@
 
 A Simple TODO in PHP, HTML5, Boostrap and MAriaDB.
 
+![Screenshot](./TODO/images/system.jpg)
+
 ## Requeriments
 
 - Git
