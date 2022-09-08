@@ -56,7 +56,7 @@ class Task{
     }
 
     public function listUser($idUser){
-       
+
         $q= "SELECT * FROM tasks WHERE idUser=:idUser";
         $stmt = $this->conn->prepare($q);
 
@@ -73,9 +73,23 @@ class Task{
 
     }
 
+    public function listAll(){
+               
+        $q= "SELECT * FROM tasks WHERE 1";
+        $stmt = $this->conn->prepare($q);
+        
+        if($stmt->execute()){
+            return $stmt;            
+        }else{
+            echo "??";
+             print_r($stmt->errorInfo());
+            return false;
+        }
+
+    }
+
+
     public function checkTask($currStatus, $id){
-
-
 
         $q="UPDATE tasks set status=:status WHERE id=:id";
         $stmt = $this->conn->prepare($q);      
@@ -115,7 +129,7 @@ class Task{
 
 
     public function readOne(){
-        echo "here!";
+       // echo "here!";
         $q="SELECT * FROM tasks WHERE id=:id LIMIT 0,1";
 
         $stmt = $this->conn->prepare( $q );
@@ -135,7 +149,6 @@ class Task{
 
 
     public function update(){
-
         $q= "UPDATE tasks 
         SET  
         name=:name,        

@@ -17,7 +17,10 @@
      $task->name= $_POST['name'];
      $task->description=$_POST['description'];
      $task->due=$_POST['due'];
-     $task->idUser=$idUser;
+     if($_SESSION["admin"])
+      $task->idUser=$_POST['user'];
+     else
+      $task->idUser=$idUser;
 
      if($task->create())
      {
@@ -25,16 +28,16 @@
       //echo "<div class='alert alert-success'>TODO Created!!!</div>";
      }
      else{
-      echo "<div class='alert alert-danger'>Error!</div>";
+      echo " 
+      <div class='alert alert-danger alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>ERROR</strong>
+      </div>";
      }
 
    }
-   
 
 
-
-
-   //$stmt= $task->read();
 
 ?>
 <div class="container mt-5">
@@ -66,7 +69,10 @@
 
       <div class="mb-3 mt-3">
         <label for="uname" class="form-label">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="Enter TODO description " name="description" required>
+        <textarea class="form-control" rows="5" id="description" name="description" required></textarea>
+
+
+        <!--input type="text" class="form-control" id="description" placeholder="Enter TODO description " name="description" required-->
         <!--div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback">Please fill out this field.</div-->
       </div>
@@ -75,7 +81,29 @@
             <label for="startDate">Due date</label>
             <input id="startDate" class="form-control" type="date" name="due" required />
             <span id="startDateSelected"></span>
-        </div>
+      </div>
+<?php
+if($_SESSION['admin'])
+{
+
+  $user= new User($db);
+  $stmtU= $user->listAll();
+?>
+      <div class="col-lg-3 col-sm-6">
+            <label for="users">User</label>
+            <select class="form-select" name="user" id="user" required>  
+              <?php 
+              while($rowU =  $stmtU->fetch(PDO::FETCH_ASSOC)){
+                  extract($rowU);?>
+              <option value=<?php echo $rowU['id']?>> <?php echo $rowU['name']?></option>
+              <?php }
+              ?>
+              
+            </select> 
+      </div>
+
+<?php } ?>
+
   </div>
   <div class="card-footer text-center"><button type="submit" class="btn btn-primary">Submit</button></div>
 </div>

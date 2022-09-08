@@ -21,14 +21,12 @@ class User{
         $this->name =  htmlspecialchars(strip_tags($this->name));
         $this->email =  htmlspecialchars(strip_tags($this->email));
         $this->password =  htmlspecialchars(strip_tags($this->password));
-       $this->password=password_hash( $this->password,PASSWORD_DEFAULT);
+        $this->password=password_hash( $this->password,PASSWORD_DEFAULT);
 
         $stmt->bindParam(":name",$this->name);
         $stmt->bindParam(":email",$this->email);
         $stmt->bindParam(":password",$this->password);
 
-        
-        //$stmt->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION ); 
 
         if($stmt->execute()){
             return true;            
@@ -61,7 +59,7 @@ class User{
                 $this->name =  $row['name'];
                 $this->email =  $row['email'];
                 $this->password =  $row['password'];
-                $this->idAdmin =  $row['isAdmin'];
+                $this->isAdmin =  $row['isAdmin'];
     
     
                 if(password_verify($pass,$this->password))            
@@ -75,13 +73,96 @@ class User{
 
         }
         else  print_r($stmt->errorInfo());
-        
-       
+    }
 
+    public function listAll(){
+        $q= "SELECT * from users WHERE 1 ";
+        $stmt= $this->conn->prepare($q);
+        if($stmt->execute())
+        {
+            return $stmt;
+        }
+        else  print_r($stmt->errorInfo());
 
     }
+
+
+    public function delete($id)
+    {
+       
+        $q="DELETE FROM users WHERE id=:id";
+        $stmt = $this->conn->prepare($q);  
+        $stmt->bindParam(":id", $id);
+
+        if($stmt->execute()){
+            return $stmt;            
+        }else{
+            echo "??";
+             print_r($stmt->errorInfo());
+            return false;
+        }
+
+    }
+
+    public function readOne($id){        
+        
+        $q="SELECT * FROM users WHERE id=:id LIMIT 0,1";
+        $stmt = $this->conn->prepare( $q );
+        $stmt->bindParam(':id', $id);
+        if($stmt->execute()){
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->name = $row['name'];
+            $this->email = $row['email'];
+        
+        }else{            
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+
+
+    public function update(){
+
+        if($this->password!='')
+        {
+            $q= "UPDATE users SET name=:name, email=:email, password=:password WHERE id=:id";
+            $stmt = $this->conn->prepare($q);                    
+            //$this->name =  htmlspecialchars(strip_tags($this->name));
+            //$this->email =  htmlspecialchars(strip_tags($this->email));
+            $this->password =  htmlspecialchars(strip_tags($this->password));
+            $this->password=password_hash( $this->password,PASSWORD_DEFAULT);
+
+            //$stmt->bindParam(":name",$this->name);
+            //$stmt->bindParam(":email",$this->email);
+            $stmt->bindParam(":password",$this->password);
+            //$stmt->bindParam(":id",$this->id);
+
+        }
+
+        else
+        {
+        
+            $q= "UPDATE users SET name=:name, email=:email  WHERE id=:id";
+            $stmt = $this->conn->prepare($q);                    
+                
+
+        }
+        $this->name =  htmlspecialchars(strip_tags($this->name));
+        $this->email =  htmlspecialchars(strip_tags($this->email));
+        $stmt->bindParam(":name",$this->name);
+        $stmt->bindParam(":email",$this->email);
+        $stmt->bindParam(":id",$this->id);      
+
+        
+        if($stmt->execute()){
+            return true;            
+        }else{
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+
+
 }
-
-
 
 ?>

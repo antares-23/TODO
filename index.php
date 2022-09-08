@@ -1,9 +1,13 @@
 <?php
- //   session_start(); 
-    $title_page="login";
+
+    $title_page="login"; 
     include_once "./common/header.php";
     include_once './db/database.php';
     include_once './obj/user.php';
+
+
+   if( isset($_SESSION["id"]) && isset($_SESSION["name"]) )
+      header("location: ./list.php");
 
     $database= new Database();
     $database->setConfig( $todoHost,$todoDB, $todoUser,  $todoPass);
@@ -11,25 +15,30 @@
 
     if($_POST){
         $user = new User($db);
-
         if($user->check($_POST['email'],$_POST['password']))
         {
-           // unset($_SESSION["id"]);
-           // unset($_SESSION["name"]);
+         
             $_SESSION["id"]=$user->id;
             $_SESSION["name"]=$user->name;
+            $_SESSION["admin"]=0;
 
-            //echo $user->name;
+           // echo $user->name;
+            
             if($user->isAdmin){
                 $_SESSION["admin"]=1;
-              //  echo "Admin";
+             //   echo "Admin";
+               // exit;
             }
             header("location: ./list.php");
                 
 
         }
         else
-        echo "<div class='alert alert-danger'>User not found!</div>";
+        echo " 
+        <div class='alert alert-danger alert-dismissible'>
+          <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+          <strong>ERROR</strong>User not Found!
+        </div>";
        //print_r($user);
         
     }

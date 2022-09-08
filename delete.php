@@ -1,4 +1,5 @@
 <?php
+    $title_page ="delete";
    include_once "./common/header.php";
    include_once './db/database.php';
    //include_once './obj/user.php';
@@ -14,5 +15,5 @@
    if($task->deleteTask($id)){
         header('Location: list.php?action=deleted');
     }else{
-        die('Unable to delete record.');
+        die('Cannot Delete!!');
     }

@@ -1,9 +1,10 @@
 <?php
+    $title_page="Edit TODO";
+   include_once "./common/header.php";
 
    $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: missing ID.');
 
-   $title_page="Edit TODO";
-   include_once "./common/header.php";
+
    include_once './db/database.php';
    include_once './obj/user.php';
    include_once './obj/task.php';
@@ -32,7 +33,11 @@
       header('Location: list.php?action=edited');
      }
      else{
-      echo "<div class='alert alert-danger'>Error!</div>";
+      echo " 
+      <div class='alert alert-danger alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>ERROR</strong>
+      </div>";
      }
 
    }
@@ -71,7 +76,9 @@
 
       <div class="mb-3 mt-3">
         <label for="uname" class="form-label">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="Enter TODO description " name="description" required value="<?php echo $task->description?>">
+        <textarea class="form-control" rows="5" id="description" name="description" required><?php echo $task->description?></textarea>
+
+        <!--input type="text" class="form-control" id="description" placeholder="Enter TODO description " name="description" required value="<?php //echo $task->description?>"-->
         <!--div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback">Please fill out this field.</div-->
       </div>

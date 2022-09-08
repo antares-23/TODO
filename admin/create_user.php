@@ -1,9 +1,10 @@
 <?php
 
-   $title_page="Create TODO";
-   include_once "./common/header.php";
-   include_once './db/database.php';
-   include_once './obj/user.php';
+   $title_page="Create User";
+   $adminPage=1;
+   include_once "../common/header.php";
+   include_once '../db/database.php';
+   include_once '../obj/user.php';
   
 
 
@@ -20,10 +21,19 @@
 
      if($user->create())
      {
-      echo "<div class='alert alert-success'>User Created!!!</div>";
+      echo "
+      <div class='alert alert-success alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>Success!</strong> User Created!!!
+      </div>";
+
      }
      else{
-      echo "<div class='alert alert-danger'>Error!</div>";
+      echo "
+      <div class='alert alert-danger alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>Success!</strong> Error!
+      </div>";
      }
 
    }
@@ -36,6 +46,15 @@
 
 ?>
 <div class="container mt-5">
+
+<div class="row">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 ">
+      <a href="../admin/list_users.php" class="btn btn-success float-end">Return</a>
+    </div>
+  </div>
+
+
   <div class="row">
 
 
@@ -61,7 +80,7 @@
 
       <div class="mb-3 mt-3">
         <label for="uname" class="form-label">Password</label>
-        <input type="text" class="form-control" id="pass" placeholder="Enter password " name="pass" required>
+        <input type="password" class="form-control" id="pass" placeholder="Enter password " name="pass" required>
         <!--div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback">Please fill out this field.</div-->
       </div>
@@ -84,5 +103,5 @@
 
 
 <?php
-include_once "./common/footer.php";
+include_once "../common/footer.php";
 ?>

@@ -1,4 +1,5 @@
 <?php
+$title_page ="check";
    include_once "./common/header.php";
    include_once './db/database.php';
    //include_once './obj/user.php';
